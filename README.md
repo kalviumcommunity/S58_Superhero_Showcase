@@ -17,3 +17,15 @@
 
 ### 4. Styling: CSS or SCSS
 - Description: CSS or SCSS will be used to style the frontend, ensuring a visually appealing and responsive design for your superhero showcase.
+
+## Installation
+1. Clone the repository: `git clone https://github.com/HarshwardhanKalvium/Superhero-Showcase.git`
+2. Navigate to the project directory: `cd Superhero-Showcase`
+3. Install dependencies: `npm install`
+
+## Usage
+1. Start the application: `npm run dev`
+2. Open your browser and visit: `http://localhost:3000`
+
+## Contributing
+If you'd like to contribute, please follow our [Contribution Guidelines](CONTRIBUTING.md).
