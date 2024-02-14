@@ -1,0 +1,12 @@
+{
+  "name": "s58_superhero_showcase",
+  "version": "1.0.0",
+  "description": "### 1. Frontend: React.js - Description: React.js will be the foundation for building the frontend of my superhero showcase. It will allow me to create dynamic and interactive user interfaces, making it easy to showcase superheroes in an engaging manner. - Features:   - Superhero Cards: I will use React components to represent superheroes as cards, displaying essential information such as name, image, and category.   - Filtering and Sorting: I will implement features for users to filter and sort superheroes based on categories, making it easy to find their favourite characters.   - Responsive Design: \tI’ll try so that the UI is responsive, providing an optimal viewing experience across various devices.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
