@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Superhero_Showcase",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
