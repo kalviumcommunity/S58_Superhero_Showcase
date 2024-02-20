@@ -1,17 +1,25 @@
-const app = require('express')();
-// const app = express();
-require("dotenv").config();
-const port = process.env.PUBLIC_PORT || 3000;
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
+const mongoose = require('mongoose');
 
-// define the ping route
-app.get('/ping', (req, res) => {
-  res.send('pong');
+const mongoURI = 'mongodb+srv://harshwardhandhoble:Dhoble12%40@cluster0.7sizh2j.mongodb.net/?retryWrites=true&w=majority';
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+app.get('/', (req, res) => {
+  res.send(`Database Connection Status: ${db.readyState === 1 ? 'Connected' : 'Disconnected'}`);
 });
 
-if (require.main === module) {
-  app.listen(port, () => {
-    console.log(`🚀 server running on PORT: ${port}`);
-  });
-}
+
+app.get('/ping', (req, res) => {
+  res.json({ message: 'pong' });
+});
+
+app.listen(port, () => {
+  console.log(`🚀 server running on PORT: ${port}`);
+});
 
 module.exports = app;
