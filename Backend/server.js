@@ -1,11 +1,13 @@
 const express = require('express');
 const { connection } = require('./config/db');
 const SuperheroModel = require('./Model/superhero.model');
+const cors = require('cors');
 const app = express();
 require("dotenv").config();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/superhero/Get",async(req,res)=>{
   try {
