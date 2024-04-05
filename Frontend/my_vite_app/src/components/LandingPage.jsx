@@ -10,10 +10,10 @@ function Images({data:images}) {
                 images && images.map((image, i) => {
                     return (
                         <div key={i} className="superhero">
-                            <img src={image.Images} alt={image["Superhero Name"]} />
-                            <h1>{image["Superhero Name"]}</h1>
+                            <img src={image.Images} alt={image["Superhero_Name"]} />
+                            <h1>{image["Superhero_Name"]}</h1>
                             <p>{image["Category"]}</p>
-                            <p>{image["First appearance"]}</p>
+                            <p>{image["First_appearance"]}</p>
                         </div>
                     )
                 })
