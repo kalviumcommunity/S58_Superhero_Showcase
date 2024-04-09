@@ -2,12 +2,20 @@ const express = require('express');
 const { connection } = require('./config/db');
 const SuperheroModel = require('./Model/superhero.model');
 const cors = require('cors');
+const Joi = require('joi');
 const app = express();
 require("dotenv").config();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
+
+const superheroSchema = Joi.object({
+  Superhero_Name: Joi.string().required(),
+  Category: Joi.string().required(),
+  First_appearance: Joi.string().required(),
+  Images: Joi.string().uri().required()
+});
 
 app.get("/superhero/Get",async(req,res)=>{
   try {
@@ -19,40 +27,57 @@ app.get("/superhero/Get",async(req,res)=>{
   }
 });
 
+app.get("/superhero/Get/:id",async(req,res)=>{
+  console.log(req.params.id);
+  try {
+    let result=await SuperheroModel.find({_id:req.params.id});
+    res.send({msg:"Fetched the data successfully",data:result})
+  } catch (error) {
+    console.log(error);
+    res.send(error)
+  }
+});
 
 app.post("/superhero/Post",async(req,res)=>{
   let payload=req.body;
-   try {
+  const { error } = superheroSchema.validate(payload);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+  try {
     await SuperheroModel.create(payload);
     res.send({msg:"Posted the data successfully"})
-   } catch (error) {
-      console.log(error);
-      res.send(error);
-   }
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
 });
-
 
 app.put("/superhero/Update/:id",async(req,res)=>{
   let payload=req.body;
   let id=req.params.id;
-   try {
+  const { error } = superheroSchema.validate(payload);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+  try {
     await SuperheroModel.findByIdAndUpdate(id,payload);
     res.send({msg:"Updated the data successfully"})
-   } catch (error) {
-      console.log(error);
-      res.send(error);
-   }
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
 });
 
 app.delete("/superhero/Delete/:id",async(req,res)=>{
   let id=req.params.id;
-   try {
+  try {
     await SuperheroModel.findByIdAndDelete(id);
     res.send({msg:"Deleted the data successfully"})
-   } catch (error) {
-      console.log(error);
-      res.send(error);
-   }
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
 })
 
 app.get('/ping', (req, res) => {
