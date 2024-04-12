@@ -13,15 +13,20 @@ function SinglePage() {
     let param = useParams();
     console.log(param.id);
     const fetchData = () => {
-        fetch(`http://localhost:3000/superhero/Get/${param.id}`)
-          .then(response => response.json())
-          .then(res => {
-            console.log(res.data);
-            setData(res.data);
-          }).catch((error) => {
-            console.log(error);
-          })
-      }
+      fetch(`http://localhost:3000/superhero/Get/${param.id}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(res => {
+          console.log(res.data);
+          setData(res.data);
+        }).catch((error) => {
+          console.log(error);
+        })
+    }
       useEffect(() => {
         fetchData();
       }, []);

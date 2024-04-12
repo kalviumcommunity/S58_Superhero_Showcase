@@ -1,7 +1,17 @@
-import React from 'react'
+// Navbar.jsx
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setIsLoggedIn(false);
+    alert('You have been logged out.');
+  };
+
   return (
     <>
         <nav>
@@ -9,13 +19,15 @@ function Navbar() {
             <img src="./src/assets/logo.png" alt="logo" />
           </div>
           <div className='nav-item'>
-            <Link to="/">Home</Link>
+          <Link to="/">Home</Link>
             <Link to="/add">Add Superhero</Link>
             <Link to="/contacts">Contacts</Link>
+            { !isLoggedIn && <Link to="/login"><button className='loginform'>Login</button></Link> }
+            { isLoggedIn && <button className='logout' onClick={handleLogout}>Logout</button> }
           </div>
         </nav>
     </>
   )
 }
 
-export default Navbar
+export default Navbar;

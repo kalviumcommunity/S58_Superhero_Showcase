@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Form.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Form({fetchData}) {
   const [ID, setID] = useState("");
@@ -8,6 +9,7 @@ function Form({fetchData}) {
   const [Category, setCategory] = useState("");
   const [First_appearance, setFirst_appearance] = useState("");
   const [Images, setImages] = useState("");
+  let navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,10 +28,10 @@ function Form({fetchData}) {
       },
       body: JSON.stringify(data)
     }).then(response => response.json())
-      .then(data => fetchData())
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      .then((response) => {
+      alert(response.msg);
+      navigate('/');
+    })
   }
 
   return (
@@ -42,7 +44,7 @@ function Form({fetchData}) {
         <label>First appearance:</label>
         <input type="text" id="First_appearance" name="First_appearance" value={First_appearance} onChange={e => setFirst_appearance(e.target.value)} />
         <label>Images:</label>
-        <input type="text" id="Images" name="Images" value={Images} onChange={e => setImages(e.target.value)} />
+        <input required type="text" id="Images" name="Images" value={Images} onChange={e => setImages(e.target.value)} />
         <button type="submit">Submit</button>
       </form>
     </div>
