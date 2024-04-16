@@ -3,12 +3,15 @@ const { connection } = require('./config/db');
 const SuperheroModel = require('./Model/superhero.model');
 const cors = require('cors');
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 const app = express();
+const cookieParser = require('cookie-parser');
 require("dotenv").config();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 const superheroSchema = Joi.object({
   Superhero_Name: Joi.string().required(),
@@ -79,6 +82,41 @@ app.delete("/superhero/Delete/:id",async(req,res)=>{
     res.send(error);
   }
 })
+
+// Login endpoint
+app.post('/login', (req, res) => {
+  const { error } = Joi.object({
+    username: Joi.string().required(),
+    password: Joi.string().required(),
+  }).validate(req.body);
+
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+  const user = { username: req.body.username, password: req.body.password };
+
+  if (user) {
+    jwt.sign(user.username, 'dog12', function(error, token){
+      if(error){
+        res.status(401).send(error);
+      }
+      else{
+        res.cookie('username', token, { maxAge: 900000, httpOnly: true });
+        res.status(200).send(token);
+      }
+    })
+  } else {
+    res.status(401).send('Invalid username or password');
+  }
+});
+
+
+// Logout endpoint
+app.get('/logout', (req, res) => {
+  res.clearCookie('username');
+  res.status(200).send('Logged out');
+});
+
 
 app.get('/ping', (req, res) => {
   res.json({ message: 'pong' });
