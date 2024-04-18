@@ -1,13 +1,14 @@
 // Navbar.jsx
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import './Navbar.css'
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
-    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setIsLoggedIn(false);
     alert('You have been logged out.');
   };
@@ -24,6 +25,7 @@ function Navbar() {
             <Link to="/contacts">Contacts</Link>
             { !isLoggedIn && <Link to="/login"><button className='loginform'>Login</button></Link> }
             { isLoggedIn && <button className='logout' onClick={handleLogout}>Logout</button> }
+            <Link to="/signup">Sign Up</Link>
           </div>
         </nav>
     </>
