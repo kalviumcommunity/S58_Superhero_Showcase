@@ -10,26 +10,14 @@ import Navbar from './Navbar';
 function Home() {
   const [data, setData] = useState(0);
 
-  const fetchData = () => {
-    fetch('http://localhost:3000/superhero/Get')
-      .then(response => response.json())
-      .then(res => {
-        console.log(res.data);
-        setData(res.data);
-      }).catch((error) => {
-        console.log(error);
-      })
-  }
+  
 
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <>
       <Navbar/>
       <Search/>
-      <Images data={data}  />
+      <Images />
     </>
   );
 }

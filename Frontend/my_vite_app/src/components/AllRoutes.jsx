@@ -4,6 +4,7 @@ import Home from './Home';
 import Form from './Form';
 import SinglePage from './SinglePage';
 import LoginForm from '../pages/LoginForm';
+import SignUp from '../pages/SignUp';
 
 function AllRoutes() {
   return (
@@ -13,6 +14,7 @@ function AllRoutes() {
           <Route path="/add" element={<Form />} />
           <Route path="/:id" element={<SinglePage/>} />
           <Route path="/login" element={<LoginForm/>} />
+          <Route path="/signup" element={<SignUp/>} />
     </Routes>
     </>
     
