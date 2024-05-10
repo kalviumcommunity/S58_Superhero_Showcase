@@ -104,4 +104,5 @@
       "First appearance": "Tales of Suspense #39 (March 1963)",
       "Images": "Image"
     }
+    
   ]
