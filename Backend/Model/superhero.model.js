@@ -6,8 +6,9 @@ const superheroSchema = new Schema({
   Category: String,
   First_appearance: String,
   Images: String,
+  Created_by: String,
 });
 
-const SuperheroModel = mongoose.model("superheroe", superheroSchema);
+const SuperheroModel = mongoose.model("superheros", superheroSchema);
 
 module.exports = SuperheroModel;
